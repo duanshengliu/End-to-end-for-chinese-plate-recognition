@@ -1,2 +1,2 @@
 # License-plate-recognition-software
-基于unet，cv2以及cnn的车牌识别软件，其中unet和cv2用于车牌定位和矫正，cnn进行车牌识别
+基于unet，cv2以及cnn的车牌识别软件，其中unet和cv2用于车牌定位和矫正，cnn进行车牌识别，unet和cnn都是基于tensorflow的keras实现
