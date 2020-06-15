@@ -7,7 +7,7 @@
 ### 注意：若是直接识别类似下图的无需定位的完整车牌，那么请确保图片尺寸小于等于240 * 80，否则会被认为图片中含其余区域而进行定位，反而识别效果不佳
 ![](https://github.com/duanshengliu/End-to-end-for-chinese-plate-recognition/blob/master/test_pic/lic.png) 
 ### 其余的没什么问题，正常识别都可以
-效果图：
+### 部分效果图：
 ![](https://github.com/duanshengliu/End-to-end-for-chinese-plate-recognition/blob/master/test_pic/0.png)
 ![](https://github.com/duanshengliu/End-to-end-for-chinese-plate-recognition/blob/master/test_pic/1.png)
 ![](https://github.com/duanshengliu/End-to-end-for-chinese-plate-recognition/blob/master/test_pic/2.png)
