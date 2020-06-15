@@ -49,8 +49,8 @@ class Window:
         self.button2.place(x=780, y=wh - 30)
         self.button3 = Button(self.win, text='清空所有', width=10, height=1, command=self.clear)  # 清空所有按钮
         self.button3.place(x=880, y=wh - 30)
-        self.unet = keras.models.load_model('unet1.h5')
-        self.cnn = keras.models.load_model('cnn1.h5')
+        self.unet = keras.models.load_model('unet.h5')
+        self.cnn = keras.models.load_model('cnn.h5')
 
     def load_show_img(self):
         self.clear()
