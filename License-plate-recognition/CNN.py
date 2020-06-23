@@ -27,8 +27,7 @@ def cnn_train():
         X_train.append(img)
         y_train.append(label)
     X_train = np.array(X_train)
-    y_train = [np.array(y_train)[:, i] for i in
-               range(7)]  # y_train是长度为7的列表，其中每个都是shape为(n,)的ndarray，分别对应n张图片的第一个字符，第二个字符....第七个字符
+    y_train = [np.array(y_train)[:, i] for i in range(7)]  # y_train是长度为7的列表，其中每个都是shape为(n,)的ndarray，分别对应n张图片的第一个字符，第二个字符....第七个字符
 
     # cnn模型
     Input = layers.Input((80, 240, 3))  # 车牌图片shape(80,240,3)
@@ -42,8 +41,7 @@ def cnn_train():
         x = layers.Dropout(0.5)(x)
     x = layers.Flatten()(x)
     x = layers.Dropout(0.3)(x)
-    Output = [layers.Dense(65, activation='softmax', name='c%d' % (i + 1))(x) for i in
-              range(7)]  # 7个输出分别对应车牌7个字符，每个输出都为65个类别类概率
+    Output = [layers.Dense(65, activation='softmax', name='c%d' % (i + 1))(x) for i in range(7)]  # 7个输出分别对应车牌7个字符，每个输出都为65个类别类概率
     model = models.Model(inputs=Input, outputs=Output)
     model.summary()
     model.compile(optimizer='adam',
