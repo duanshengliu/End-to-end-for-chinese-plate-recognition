@@ -100,7 +100,7 @@ def unet_predict(unet, img_src_path):
     img_src = cv2.imdecode(np.fromfile(img_src_path, dtype=np.uint8), -1)  # 从中文路径读取时用
     # img_src=cv2.imread(img_src_path)
     if img_src.shape != (512, 512, 3):
-        img_src = cv2.resize(img_src, dsize=(512, 512))[:, :, :3]  # dsize=(宽度,高度),[:,:,:3]是防止图片为4通道图片，后续无法reshape
+        img_src = cv2.resize(img_src, dsize=(512, 512), interpolation=cv2.INTER_AREA)[:, :, :3]  # dsize=(宽度,高度),[:,:,:3]是防止图片为4通道图片，后续无法reshape
     img_src = img_src.reshape(1, 512, 512, 3)  # 预测图片shape为(1,512,512,3)
 
     img_mask = unet.predict(img_src)  # 归一化除以255后进行预测
