@@ -91,7 +91,8 @@ def unet_train():
     model.summary()
 
     print("开始训练u-net")
-    model.fit(X_train, y_train, epochs=400, batch_size=15)#batch_size不要过大，否则内存容易溢出
+    model.fit(X_train, y_train, epochs=100, batch_size=15)#epochs和batch_size看个人情况调整，batch_size不要过大，否则内存容易溢出
+    #我11G显存也只能设置15-20左右，我训练最终loss降低至250左右，acc约95%左右
     model.save('unet.h5')
     print('unet.h5保存成功!!!')
 
