@@ -53,7 +53,7 @@ class Window:
         self.cnn = keras.models.load_model('cnn.h5')
         print('正在启动中,请稍等...')
         cnn_predict(self.cnn, [np.zeros((80, 240, 3))])
-        print("已启动，开始识别吧！")
+        print("已启动,开始识别吧！")
 
     def load_show_img(self):
         self.clear()
