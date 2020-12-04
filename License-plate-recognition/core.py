@@ -17,7 +17,10 @@ def locate_and_correct(img_src, img_mask):
     # ret,thresh = cv2.threshold(img_mask[:,:,0],0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU) #二值化
     # cv2.imshow('thresh',thresh)
     # cv2.waitKey(0)
-    contours, hierarchy = cv2.findContours(img_mask[:, :, 0], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    try:
+        contours, hierarchy = cv2.findContours(img_mask[:, :, 0], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    except:  # 防止opencv版本不一致报错
+        ret, contours, hierarchy = cv2.findContours(img_mask[:, :, 0], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     if not len(contours):  # contours1长度为0说明未检测到车牌
         # print("未检测到车牌")
         return [], []
