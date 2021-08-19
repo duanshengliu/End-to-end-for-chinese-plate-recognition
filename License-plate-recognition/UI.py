@@ -78,7 +78,7 @@ class Window:
                 img_src_copy, Lic_img = img_src, [lic]
             else:  # 否则就需通过unet对img_src原图预测,得到img_mask,实现车牌定位,然后进行识别
                 img_src, img_mask = unet_predict(self.unet, self.img_src_path)
-                img_src_copy, Lic_img, prebox= locate_and_correct(img_src, img_mask)  # 利用core.py中的locate_and_correct函数进行车牌定位和矫正
+                img_src_copy, Lic_img = locate_and_correct(img_src, img_mask)  # 利用core.py中的locate_and_correct函数进行车牌定位和矫正
 
             Lic_pred = cnn_predict(self.cnn, Lic_img)  # 利用cnn进行车牌的识别预测,Lic_pred中存的是元祖(车牌图片,识别结果)
             if Lic_pred:

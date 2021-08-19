@@ -17,11 +17,13 @@ def locate_and_correct(img_src, img_mask):
     # ret,thresh = cv2.threshold(img_mask[:,:,0],0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU) #二值化
     # cv2.imshow('thresh',thresh)
     # cv2.waitKey(0)
-    prebox = [0,0,0,0,0,0,0,0]
-    contours, hierarchy = cv2.findContours(img_mask[:, :, 0], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    try:
+        contours, hierarchy = cv2.findContours(img_mask[:, :, 0], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    except:  # 防止opencv版本不一致报错
+        ret, contours, hierarchy = cv2.findContours(img_mask[:, :, 0], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     if not len(contours):  # contours1长度为0说明未检测到车牌
         # print("未检测到车牌")
-        return [], [], prebox
+        return [], []
     else:
         Lic_img = []
         img_src_copy = img_src.copy()  # img_src_copy用于绘制出定位的车牌轮廓
@@ -68,7 +70,6 @@ def locate_and_correct(img_src, img_mask):
 
                 d0, d1, d2, d3 = np.inf, np.inf, np.inf, np.inf
                 l0, l1, l2, l3 = (x0, y0), (x1, y1), (x2, y2), (x3, y3)
-                pl0, pl1, pl2, pl3 = (x0, y0), (x1, y1), (x2, y2), (x3, y3)
                 for each in cont:  # 计算cont中的坐标与矩形四个坐标的距离以及到上下两条直线的距离，对距离和进行权重的添加，成功计算选出四边形的4个顶点坐标
                     x, y = each[0], each[1]
                     dis0 = (x - x0) ** 2 + (y - y0) ** 2
@@ -80,28 +81,16 @@ def locate_and_correct(img_src, img_mask):
                     if weight * d_up + (1 - weight) * dis0 < d0:  # 小于则更新
                         d0 = weight * d_up + (1 - weight) * dis0
                         l0 = (x, y)
-                        plu = (int(x * (720/512)), int(y * (1160/512)))
                     if weight * d_down + (1 - weight) * dis1 < d1:
                         d1 = weight * d_down + (1 - weight) * dis1
                         l1 = (x, y)
-                        plb = (int(x * (720/512)), int(y * (1160/512)))
                     if weight * d_up + (1 - weight) * dis2 < d2:
                         d2 = weight * d_up + (1 - weight) * dis2
                         l2 = (x, y)
-                        pru = (int(x * (720/512)), int(y * (1160/512)))
                     if weight * d_down + (1 - weight) * dis3 < d3:
                         d3 = weight * d_down + (1 - weight) * dis3
                         l3 = (x, y)
-                        prb = (int(x * (720/512)), int(y * (1160/512)))
-                # sprint([prb,plb,plu,pru])
-                # tmp test start
-                prebox_tmp = []
-                pr = [prb,plb,plu,pru]
-                for i in range(4):
-                    prebox_tmp.extend(list(pr[i]))
-                prebox = prebox_tmp
-                prebox = np.array(prebox)
-                # tmp test end
+
                 # print([l0,l1,l2,l3])
                 # for l in [l0, l1, l2, l3]:
                 #     cv2.circle(img=img_mask, color=(0, 255, 255), center=tuple(l), thickness=2, radius=2)
@@ -115,4 +104,4 @@ def locate_and_correct(img_src, img_mask):
                 # cv2.waitKey(0)
                 Lic_img.append(lic)
                 cv2.drawContours(img_src_copy, [np.array([l0, l1, l3, l2])], -1, (0, 255, 0), 2)  # 在img_src_copy上绘制出定位的车牌轮廓，(0, 255, 0)表示绘制线条为绿色
-    return img_src_copy, Lic_img, prebox
+    return img_src_copy, Lic_img
