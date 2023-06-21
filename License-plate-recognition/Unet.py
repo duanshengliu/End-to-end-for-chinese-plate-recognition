@@ -1,9 +1,8 @@
 # -*- coding:utf-8 -*-
-# author: DuanshengLiu
 import numpy as np
 import os
 import cv2
-from tensorflow.keras import layers, losses, models
+from keras import layers,  models
 
 
 def unet_train():
