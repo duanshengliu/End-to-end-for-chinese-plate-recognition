@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# author: DuanshengLiu
+
 import cv2
 import numpy as np
 
