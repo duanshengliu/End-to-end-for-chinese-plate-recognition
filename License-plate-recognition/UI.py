@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 # author: DuanshengLiu
 import cv2
+import sys
 import numpy as np
 from tkinter import *
 from tkinter.filedialog import askopenfilename
