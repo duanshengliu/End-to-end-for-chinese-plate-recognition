@@ -86,7 +86,7 @@ def unet_train():
 
     model = models.Model(inpt, outpt)
     model.compile(optimizer='adam',
-                  loss='mean_squared_error',
+                  loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
     model.summary()
 
