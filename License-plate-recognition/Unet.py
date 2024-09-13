@@ -82,8 +82,8 @@ def unet_train():
     conv9 = Conv2d_BN(concat4, 8, (3, 3))
     conv9 = Conv2d_BN(conv9, 8, (3, 3))
     conv9 = layers.Dropout(0.5)(conv9)
-    outpt = layers.Conv2D(filters=3, kernel_size=(1, 1), strides=(1, 1), padding='same', activation='relu')(conv9)
-
+    outpt = layers.Conv2D(filters=3, kernel_size=(1, 1), strides=(1, 1), padding='same', activation='relu')(conv9) # TODO:activation='softmax'
+    
     model = models.Model(inpt, outpt)
     model.compile(optimizer='adam',
                   loss='sparse_categorical_crossentropy',
